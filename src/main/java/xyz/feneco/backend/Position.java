@@ -1,15 +1,17 @@
 package xyz.feneco.backend;
 
 public class Position {
-    private Integer x;
-    private Integer y;
+    private final Integer x;
+    private final Integer y;
 
     public Position(Integer x, Integer y) {
-        set(x, y);
+        this.x = x;
+        this.y = y;
     }
 
     public Position(Position pos) {
-        set(pos);
+        this.x = pos.getX();
+        this.y = pos.getY();
     }
 
     public Integer getX() {
@@ -18,30 +20,6 @@ public class Position {
 
     public Integer getY() {
         return y;
-    }
-
-    public void setX(Integer x) {
-        this.x = x;
-    }
-
-    public void setY(Integer y) {
-        this.y = y;
-    }
-
-    public void set(Integer x, Integer y) {
-        this.x = x; this.y = y;
-    }
-
-    public void set(Position pos) {
-        set(pos.getX(), pos.getY());
-    }
-
-    public void add(Integer a, Integer b) {
-        set(this.x + a, this.y + b);
-    }
-
-    public void add(Position pos) {
-        set(this.x + pos.getX(), this.y + pos.getY());
     }
 
     public static Position add(Position pos1, Position pos2) {
@@ -54,6 +32,18 @@ public class Position {
 
     public Position getAdd(Position pos) {
         return new Position(this.x + pos.getX(), this.y + pos.getY());
+    }
+
+    public static Position sub(Position pos1, Position pos2) {
+        return new Position(pos1.getX() - pos2.getX(), pos1.getY() - pos2.getY());
+    }
+
+    public Position getSub(Integer a, Integer b) {
+        return new Position(this.x + a, this.y + b);
+    }
+
+    public Position getSub(Position pos) {
+        return new Position(x - pos.getX(), y - pos.getY());
     }
 
     public Boolean equals(Position pos) {
@@ -70,7 +60,8 @@ public class Position {
         return a + b;
     }
 
-    public Position getSub(Position pos) {
-        return new Position(x - pos.getX(), y - pos.getY());
+    @Override
+    public String toString(){
+        return "[" + x.toString() + ", " + y.toString() + "]";
     }
 }
