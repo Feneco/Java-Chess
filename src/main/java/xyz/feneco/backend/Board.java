@@ -8,6 +8,10 @@ public class Board {
     private ArrayList<Piece> capturedPieces = new ArrayList<>();
     private Team playingTeam;
 
+    public Board() {
+        playingTeam = Team.White;
+    }
+
     public Board(Board b){
         this.pieces = new ArrayList<>(b.pieces);
         this.capturedPieces = new ArrayList<>(b.capturedPieces);
@@ -107,20 +111,40 @@ public class Board {
     }
 
     public Boolean movePutKingInCheck(Position from, Position to) {
-        Board backup = new Board(this);
-        Piece p1 = backup.getPieceAt(from);
-        Piece p2 = backup.getPieceAt(to);
-        p1.getPosition().set(to);
+        Boolean retVal = false;
+        Boolean removedPiece = false;
+
+        Piece p1 = getPieceAt(from);
+        Piece p2 = getPieceAt(to);
+
+        p1.setPosition(to);
         if ( p2 != null ) {
-            backup.removePiece(p2);
+            removePiece(p2);
+            removedPiece = true;
         }
-        Piece king = backup.getKing(playingTeam);
-        ArrayList<Piece> enemies = backup.getEnemyPieces();
-        for (Piece e : enemies) {
-            if ( e.canMove(king.position) ) {
-                return true;
+
+        Piece king = getKing(playingTeam);
+        if ( king != null ) {
+            ArrayList<Piece> enemies = getEnemyPieces();
+            for (Piece e : enemies) {
+                if (e.canMove(king.position)) {
+                    retVal = true;
+                }
             }
         }
-        return false;
+
+        p1.setPosition(from);
+        if ( removedPiece ) {
+            addPiece(p2);
+        }
+        return retVal;
+    }
+
+    public void changeTeam(){
+        playingTeam = (playingTeam == Team.White) ? Team.Black : Team.White;
+    }
+
+    public Team getPlayingTeam() {
+        return playingTeam;
     }
 }

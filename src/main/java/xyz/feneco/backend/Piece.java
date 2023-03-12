@@ -2,7 +2,7 @@ package xyz.feneco.backend;
 
 public abstract class Piece {
     protected final Team team;
-    protected final Position position;
+    protected Position position;
     protected final Character symbol;
     private Boolean notMoved;
     protected final Board board;
@@ -16,12 +16,15 @@ public abstract class Piece {
         this.position = position;
         this.symbol = symbol;
         this.board = board;
+        board.addPiece(this);
         notMoved = true;
     }
 
     public Boolean canMove(Position desiredPos){
-        if ( isMoveValid(desiredPos) ) { // Short-circuiting
-            return board.movePutKingInCheck(position, desiredPos);
+        boolean a = isMoveValid(desiredPos);
+        if ( a ) { // Short-circuiting
+            boolean b = !board.movePutKingInCheck(position, desiredPos);
+            return b;
         }
         return false;
     }
@@ -30,7 +33,11 @@ public abstract class Piece {
 
     public void moveTo(Position pos) {
         notMoved = false;
-        position.set(pos);
+        setPosition(pos);
+    }
+
+    public void setPosition(Position pos) {
+        position = pos;
     }
 
     public final Team getTeam() {
@@ -55,6 +62,7 @@ public abstract class Piece {
 
     @Override
     public String toString() {
-        return symbol.toString();
+        return team.label + " " + symbol.toString() + " at " + position.toString();
     }
+
 }
