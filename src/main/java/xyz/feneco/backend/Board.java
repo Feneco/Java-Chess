@@ -97,17 +97,12 @@ public class Board {
     }
 
     public Piece getKing(Team team) {
+        for (Piece p : pieces) {
+            if ( p.getTeam() == playingTeam && p instanceof King king ) {
+                return king;
+            }
+        }
         return null;
-        /* TODO: Remove this comment block when King class is implemented
-         * Piece ret = null;
-         * for( Piece piece : pieces ) {
-         *  if ( piece instanceof King && piece.getTeam() == team ) {
-         *      ret = piece;
-         *      break;
-         *  }
-         * }
-         * return ret;
-         */
     }
 
     public Boolean movePutKingInCheck(Position from, Position to) {
