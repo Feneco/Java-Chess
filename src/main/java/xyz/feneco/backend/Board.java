@@ -52,27 +52,32 @@ public class Board {
         Piece moving = getPieceAt(from);
         Piece capturing = getPieceAt(to);
         if (moving != null) {
+            if (moving.getTeam() != playingTeam) {
+                return;
+            }
             if (moving.canMove(to)) {
+                moving.moveTo(to);
                 if (capturing != null) {
                     capturePiece(capturing);
-                    moving.moveTo(to);
                     if (moving instanceof Pawn pawn && (to.getY() == 0 || to.getY() == 7)) {
                         // TODO: Pawn promotion
                         // This function must communicate with upper layer to query user for desired piece.
-                    } else if (moving instanceof King king && Math.abs(to.getSub(from).getX()) > 1) {
-                        // TODO: Castling
                     }
                 // If capturing square is null and pawn is moving diagonally, it is an en passant due to being a valid move
-                } else if ( moving instanceof Pawn capturingPawn
-                            && Math.abs(to.getSub(from).getX()) == 1
-                            && Math.abs(to.getSub(from).getY()) == 1) {
+                } else if (moving instanceof Pawn capturingPawn
+                           && Math.abs(to.getSub(from).getX()) == 1
+                           && Math.abs(to.getSub(from).getY()) == 1) {
                     // En passant
-                    Piece lateral = getPieceAt( to.getAdd(0, -capturingPawn.getTeamDirection()) );
+                    Piece lateral = getPieceAt(to.getAdd(0, -capturingPawn.getTeamDirection()));
                     capturePiece(lateral);
                     capturingPawn.moveTo(to);
+                } else if (moving instanceof King king
+                           && Math.abs(to.getSub(from).getX()) > 1) {
+                    // TODO: Castling
                 }
             }
         }
+
     }
 
     public Piece getPieceAt(Position pos) {

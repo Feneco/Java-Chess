@@ -16,7 +16,6 @@ public abstract class Piece {
         this.position = position;
         this.symbol = symbol;
         this.board = board;
-        board.addPiece(this);
         notMoved = true;
     }
 
