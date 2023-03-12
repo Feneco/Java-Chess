@@ -3,7 +3,7 @@ package xyz.feneco.backend.pieces;
 import xyz.feneco.backend.*;
 
 public class Rook extends Piece {
-    private final static Character rookSymbol = 'K';
+    private final static Character rookSymbol = 'R';
 
     protected Rook(Team team, Position position, Board board) {
         super(team, position, rookSymbol, board);
