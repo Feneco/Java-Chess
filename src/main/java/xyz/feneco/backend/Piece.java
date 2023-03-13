@@ -55,6 +55,6 @@ public abstract class Piece {
 
     @Override
     public String toString() {
-        return team.label + " " + symbol.toString() + " at " + position.toString();
+        return team.getLabel() + " " + symbol.toString() + " at " + position.toString();
     }
 }
