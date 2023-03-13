@@ -17,26 +17,27 @@ public class Pawn extends Piece {
 
     @Override
     public Boolean isMoveValid(Position desiredPos) {
-        Boolean oneForward  =  position.getY() +  getTeamDirection() == desiredPos.getY();
+        Integer direction = board.getTeamDirection(team);
+        Boolean oneForward  =  position.getY() +  direction == desiredPos.getY();
         Boolean lateralMove =  position.getX() == desiredPos.getX()  - 1 || position.getX() == desiredPos.getX() + 1;
-        Boolean twoForward  = (position.getY() +  getTeamDirection() * 2) == desiredPos.getY();
+        Boolean twoForward  = (position.getY() +  direction * 2) == desiredPos.getY();
 
         Piece piece = board.getPieceAt(desiredPos);
         if ( lateralMove && oneForward ) {
             if ( piece == null ) {
-                Piece lateral = board.getPieceAt(desiredPos.getAdd(0, -getTeamDirection()));
-                if ( lateral instanceof Pawn pawn && isEnemyPiece(pawn)) {
+                Piece lateral = board.getPieceAt(desiredPos.getAdd(0, -direction));
+                if ( lateral instanceof Pawn pawn && board.isP1EnemyOfP2(this, pawn)) {
                     return pawn.getEnPassant(); // may be capture
                 } else {
                     return false;
                 }
             } else {
-                return isEnemyPiece(piece); // may be capture
+                return board.isP1EnemyOfP2(this, piece); // may be capture
             }
         } else if ( oneForward ) {
             return piece == null;
         } else if ( twoForward ) {
-            Piece piece2 = board.getPieceAt(desiredPos.getAdd(0, -getTeamDirection()));
+            Piece piece2 = board.getPieceAt(desiredPos.getAdd(0, -direction));
             return getNotMoved() && piece == null && piece2 == null;
         } else {
             return false;
@@ -45,7 +46,7 @@ public class Pawn extends Piece {
 
     @Override
     public void moveTo(Position pos) {
-        Boolean twoForward = (position.getY() + getTeamDirection() * 2) == pos.getY();
+        Boolean twoForward = (position.getY() + board.getTeamDirection(team) * 2) == pos.getY();
         enPassant = getNotMoved() && twoForward;
         super.moveTo(pos);
     }

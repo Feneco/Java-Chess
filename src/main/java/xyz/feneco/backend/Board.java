@@ -68,7 +68,7 @@ public class Board {
                            && Math.abs(to.getSub(from).getX()) == 1
                            && Math.abs(to.getSub(from).getY()) == 1) {
                     // En passant
-                    Piece lateral = getPieceAt(to.getAdd(0, -capturingPawn.getTeamDirection()));
+                    Piece lateral = getPieceAt(to.getAdd(0, -getTeamDirection(capturingPawn.getTeam())));
                     capturePiece(lateral);
                     capturingPawn.moveTo(to);
                 } else if (moving instanceof King king
@@ -155,5 +155,13 @@ public class Board {
 
     public Team getPlayingTeam() {
         return playingTeam;
+    }
+
+    public final Integer getTeamDirection(Team team) {
+        return team == Team.White ? 1 : -1;
+    }
+
+    public final Boolean isP1EnemyOfP2(Piece p1, Piece p2) {
+        return p1.getTeam() != p2.getTeam();
     }
 }

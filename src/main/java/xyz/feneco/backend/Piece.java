@@ -53,14 +53,6 @@ public abstract class Piece {
         return notMoved;
     }
 
-    protected final Integer getTeamDirection() {
-        return team == Team.White ? 1 : -1;
-    }
-
-    public final Boolean isEnemyPiece(Piece p) {
-        return p.getTeam() != team;
-    }
-
     @Override
     public String toString() {
         return team.label + " " + symbol.toString() + " at " + position.toString();
