@@ -54,7 +54,7 @@ public class Position {
         return (pos1.equals(pos2));
     }
 
-    public static Integer l1Distance(Position pos1, Position pos2) {
+    public static Integer distanceL1(Position pos1, Position pos2) {
         Integer a = Math.abs(pos1.getX() - pos2.getX());
         Integer b = Math.abs(pos1.getY() - pos2.getY());
         return a + b;
