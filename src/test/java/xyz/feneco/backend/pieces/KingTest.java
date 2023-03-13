@@ -1,9 +1,10 @@
 package xyz.feneco.backend.pieces;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 import xyz.feneco.backend.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class KingTest {
 
