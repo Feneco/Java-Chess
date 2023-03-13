@@ -39,6 +39,8 @@ class PawnTest {
             board.changeTeam();
             assertTrue(wPawn1.canMove(new Position(2, 5)));
             assertEquals(report, MovReport.Normal);
+            MovReport report2 = board.movePiece(new Position(1, 4), new Position(2, 5));
+            assertEquals(report2, MovReport.Normal);
         }
         {
             Board board = new Board();
