@@ -55,6 +55,7 @@ public class Board {
             if (moving.getTeam() != playingTeam) {
                 return MovReport.Invalid;
             }
+            boolean pieceNotMovedBefore = moving.getNotMoved();
             if (moving.canMove(to)) {
                 moving.moveTo(to);
                 if (capturing != null) {
@@ -76,8 +77,8 @@ public class Board {
                     Boolean kingSide = king.getPosition().getX() == 6;
                     Integer xCoord = kingSide ? 7 : 0;
                     Piece mayBeCastle = getPieceAt(new Position(xCoord, king.getPosition().getY()));
-                    if ( mayBeCastle instanceof Rook rook && king.getNotMoved() && rook.getNotMoved() ) {
-                        rook.moveTo(new Position(kingSide? 6 : 2, king.getPosition().getY()));
+                    if ( mayBeCastle instanceof Rook rook && pieceNotMovedBefore && mayBeCastle.getNotMoved() ) {
+                        rook.moveTo(new Position(kingSide? 5 : 2, king.getPosition().getY()));
                     }
                 }
                 return MovReport.Normal;
