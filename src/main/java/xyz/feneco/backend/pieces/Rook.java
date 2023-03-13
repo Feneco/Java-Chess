@@ -14,6 +14,31 @@ public class Rook extends Piece {
         Position delta = desiredPos.getSub(position);
         Boolean hMove = delta.getX() != 0 && delta.getY() == 0;
         Boolean vMove = delta.getX() == 0 && delta.getY() != 0;
-        return hMove || vMove;
+        if ( hMove ) {
+            Integer d = Integer.signum(delta.getX());
+            for (int i = position.getX() + d; i != desiredPos.getX(); i += d) {
+                Position pTest = new Position(i, position.getY());
+                if (board.getPieceAt(pTest) != null) {
+                    return false;
+                }
+            }
+        }
+        if ( vMove ) {
+            Integer d = Integer.signum(delta.getY());
+            for (int j = position.getY() + d; j != desiredPos.getY(); j += d) {
+                Position pTest = new Position(position.getX(), j);
+                if (board.getPieceAt(pTest) != null) {
+                    return false;
+                }
+            }
+        }
+        if ( hMove || vMove ) {
+            Piece p = board.getPieceAt(desiredPos);
+            if ( p != null ) {
+                return board.isP1EnemyOfP2(this, p);
+            }
+            return true;
+        }
+        return false;
     }
 }
