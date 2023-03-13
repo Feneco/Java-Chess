@@ -46,22 +46,21 @@ public class Board {
         capturedPieces.add(p);
     }
 
-    public void movePiece(Position from, Position to) {
+    public MovReport movePiece(Position from, Position to) {
         // This function must check if move is:
         // En passant, Promotion, Castling
         Piece moving = getPieceAt(from);
         Piece capturing = getPieceAt(to);
         if (moving != null) {
             if (moving.getTeam() != playingTeam) {
-                return;
+                return MovReport.Invalid;
             }
             if (moving.canMove(to)) {
                 moving.moveTo(to);
                 if (capturing != null) {
                     capturePiece(capturing);
                     if (moving instanceof Pawn pawn && (to.getY() == 0 || to.getY() == 7)) {
-                        // TODO: Pawn promotion
-                        // This function must communicate with upper layer to query user for desired piece.
+                        return MovReport.Promotion;
                     }
                 // If capturing square is null and pawn is moving diagonally, it is an en passant due to being a valid move
                 } else if (moving instanceof Pawn capturingPawn
@@ -73,11 +72,20 @@ public class Board {
                     capturingPawn.moveTo(to);
                 } else if (moving instanceof King king
                            && Math.abs(to.getSub(from).getX()) > 1) {
-                    // TODO: Castling
+                    // Castling
+                    Boolean kingSide = king.getPosition().getX() == 6;
+                    Integer xCoord = kingSide ? 7 : 0;
+                    Piece mayBeCastle = getPieceAt(new Position(xCoord, king.getPosition().getY()));
+                    if ( mayBeCastle instanceof Rook rook && king.getNotMoved() && rook.getNotMoved() ) {
+                        rook.moveTo(new Position(kingSide? 6 : 2, king.getPosition().getY()));
+                    }
                 }
+                return MovReport.Normal;
+            } else {
+                return MovReport.Invalid;
             }
         }
-
+        return MovReport.Invalid;
     }
 
     public Piece getPieceAt(Position pos) {

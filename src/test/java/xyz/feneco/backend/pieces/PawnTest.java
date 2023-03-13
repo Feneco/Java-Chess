@@ -2,7 +2,6 @@ package xyz.feneco.backend.pieces;
 
 import org.junit.jupiter.api.Test;
 import xyz.feneco.backend.*;
-import xyz.feneco.backend.Piece;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,9 +35,10 @@ class PawnTest {
             board.addPiece(bPawn1);
 
             board.changeTeam();
-            board.movePiece(new Position(2, 6), new Position(2, 4));
+            MovReport report = board.movePiece(new Position(2, 6), new Position(2, 4));
             board.changeTeam();
             assertTrue(wPawn1.canMove(new Position(2, 5)));
+            assertEquals(report, MovReport.Normal);
         }
         {
             Board board = new Board();
@@ -48,9 +48,10 @@ class PawnTest {
             board.addPiece(bPawn1);
 
             board.changeTeam();
-            board.movePiece(new Position(1, 5), new Position(1, 4));
+            MovReport report = board.movePiece(new Position(1, 5), new Position(1, 4));
             board.changeTeam();
             assertFalse(wPawn1.canMove(new Position(1, 5)));
+            assertEquals(report, MovReport.Normal);
         }
     }
 }
