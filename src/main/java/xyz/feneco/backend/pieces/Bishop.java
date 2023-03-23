@@ -8,7 +8,7 @@ import xyz.feneco.backend.Team;
 public class Bishop extends Piece {
 
     public Bishop(Team team, Position position, Board board) {
-        super(team, position, 'b', board);
+        super(team, position, 'B', board);
     }
 
     @Override
