@@ -33,10 +33,6 @@ public class Rook extends Piece {
             }
         }
         if ( hMove || vMove ) {
-            Piece p = board.getPieceAt(desiredPos);
-            if ( p != null ) {
-                return board.isP1EnemyOfP2(this, p);
-            }
             return true;
         }
         return false;

@@ -26,13 +26,13 @@ public class Pawn extends Piece {
         if ( lateralMove && oneForward ) {
             if ( piece == null ) {
                 Piece lateral = board.getPieceAt(desiredPos.getAdd(0, -direction));
-                if ( lateral instanceof Pawn pawn && board.isP1EnemyOfP2(this, pawn)) {
+                if ( lateral instanceof Pawn pawn) {
                     return pawn.getEnPassant(); // may be capture
                 } else {
                     return false;
                 }
             } else {
-                return board.isP1EnemyOfP2(this, piece); // may be capture
+                return true;
             }
         } else if ( oneForward ) {
             return piece == null;

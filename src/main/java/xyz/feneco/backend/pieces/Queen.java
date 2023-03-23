@@ -46,13 +46,6 @@ public class Queen extends Piece {
                 }
             }
         }
-        if ( hMove || vMove || diagMove ) {
-            Piece p = board.getPieceAt(desiredPos);
-            if ( p != null ) {
-                return board.isP1EnemyOfP2(this, p);
-            }
-            return true;
-        }
-        return false;
+        return hMove || vMove || diagMove;
     }
 }
