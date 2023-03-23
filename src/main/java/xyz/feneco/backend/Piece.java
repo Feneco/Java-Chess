@@ -32,6 +32,12 @@ public abstract class Piece {
 
     protected abstract Boolean isMoveValid(Position desiredPos);
 
+    /**
+     * This function will set the piece position.
+     * It will change the notMoved variable, so it should be used while in game.
+     *
+     * @param pos The position to move this piece to.
+     */
     public void moveTo(Position pos) {
         notMoved = false;
         setPosition(pos);
@@ -45,6 +51,13 @@ public abstract class Piece {
         return position;
     }
 
+    /**
+     * This function will hard set the piece position.
+     * It will not change the notMoved variable, so it should be used
+     * in testing and debugging.
+     *
+     * @param pos The position to move this piece to.
+     */
     public void setPosition(Position pos) {
         position = pos;
     }
