@@ -19,8 +19,51 @@ public class Board {
     }
 
     public void initBoard() {
-        // TODO when all pieces are implemented
-        return;
+        for (int i = 0; i < 8; i++) {
+            Piece p = new Pawn(Team.White, new Position(i, 1), this);
+            this.addPiece(p);
+        }
+        {
+            Piece R1 = new Rook(Team.White,   new Position(0, 0), this);
+            Piece R2 = new Rook(Team.White,   new Position(7, 0), this);
+            Piece K1 = new Knight(Team.White, new Position(1, 0), this);
+            Piece K2 = new Knight(Team.White, new Position(6, 0), this);
+            Piece B1 = new Knight(Team.White, new Position(2, 0), this);
+            Piece B2 = new Knight(Team.White, new Position(5, 0), this);
+            Piece Q = new Queen(Team.White,   new Position(3, 0), this);
+            Piece K = new King(Team.White,    new Position(4, 0), this);
+            this.addPiece(R1);
+            this.addPiece(R2);
+            this.addPiece(K1);
+            this.addPiece(K2);
+            this.addPiece(B1);
+            this.addPiece(B2);
+            this.addPiece(Q);
+            this.addPiece(K);
+        }
+
+        for (int i = 0; i < 8; i++) {
+            Piece p = new Pawn(Team.Black, new Position(i, 6), this);
+            this.addPiece(p);
+        }
+        {
+            Piece R1 = new Rook(Team.Black,   new Position(0, 7), this);
+            Piece R2 = new Rook(Team.Black,   new Position(7, 7), this);
+            Piece K1 = new Knight(Team.Black, new Position(1, 7), this);
+            Piece K2 = new Knight(Team.Black, new Position(6, 7), this);
+            Piece B1 = new Knight(Team.Black, new Position(2, 7), this);
+            Piece B2 = new Knight(Team.Black, new Position(5, 7), this);
+            Piece Q = new Queen(Team.Black,   new Position(3, 7), this);
+            Piece K = new King(Team.Black,    new Position(4, 7), this);
+            this.addPiece(R1);
+            this.addPiece(R2);
+            this.addPiece(K1);
+            this.addPiece(K2);
+            this.addPiece(B1);
+            this.addPiece(B2);
+            this.addPiece(Q);
+            this.addPiece(K);
+        }
     }
 
     public ArrayList<Piece> getPieces(Team team) {
