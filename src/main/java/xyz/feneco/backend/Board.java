@@ -210,4 +210,29 @@ public class Board {
         }
         return p1.getTeam() != p2.getTeam();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("┌───┬───┬───┬───┬───┬───┬───┬───┐\n");
+        for (int i = 7; i >= 0; i--) {
+            for (int j = 0; j < 8; j++) {
+                sb.append("│");
+                Piece p = getPieceAt(new Position(j, i));
+                if ( p != null) {
+                    sb.append(' ');
+                    sb.append(p.getTeam() == Team.White ? p.getSymbol() : Character.toLowerCase(p.getSymbol()));
+                    sb.append(' ');
+                }else {
+                    sb.append("   ");
+                }
+            }
+            sb.append("│\n");
+            if (i != 0 ) {
+                sb.append("├───┼───┼───┼───┼───┼───┼───┼───┤\n");
+            }
+        }
+        sb.append("└───┴───┴───┴───┴───┴───┴───┴───┘\n");
+        return sb.toString();
+    }
 }
