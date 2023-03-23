@@ -162,6 +162,9 @@ public class Board {
     }
 
     public final Boolean isP1EnemyOfP2(Piece p1, Piece p2) {
+        if ( p1 == null || p2 == null ) {
+            return false;
+        }
         return p1.getTeam() != p2.getTeam();
     }
 }

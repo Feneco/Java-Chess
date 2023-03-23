@@ -21,7 +21,11 @@ public abstract class Piece {
         boolean a = isMoveValid(desiredPos);
         if ( a ) { // Short-circuiting
             boolean b = !board.movePutKingInCheck(position, desiredPos);
-            return b;
+            boolean e = true;
+            Piece pieceAtDesiredPos = board.getPieceAt(desiredPos);
+            if ( pieceAtDesiredPos != null )
+                e = board.isP1EnemyOfP2(this, pieceAtDesiredPos);
+            return b && e;
         }
         return false;
     }
