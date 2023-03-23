@@ -28,8 +28,8 @@ public class Board {
             Piece R2 = new Rook(Team.White,   new Position(7, 0), this);
             Piece K1 = new Knight(Team.White, new Position(1, 0), this);
             Piece K2 = new Knight(Team.White, new Position(6, 0), this);
-            Piece B1 = new Knight(Team.White, new Position(2, 0), this);
-            Piece B2 = new Knight(Team.White, new Position(5, 0), this);
+            Piece B1 = new Bishop(Team.White, new Position(2, 0), this);
+            Piece B2 = new Bishop(Team.White, new Position(5, 0), this);
             Piece Q = new Queen(Team.White,   new Position(3, 0), this);
             Piece K = new King(Team.White,    new Position(4, 0), this);
             this.addPiece(R1);
@@ -51,8 +51,8 @@ public class Board {
             Piece R2 = new Rook(Team.Black,   new Position(7, 7), this);
             Piece K1 = new Knight(Team.Black, new Position(1, 7), this);
             Piece K2 = new Knight(Team.Black, new Position(6, 7), this);
-            Piece B1 = new Knight(Team.Black, new Position(2, 7), this);
-            Piece B2 = new Knight(Team.Black, new Position(5, 7), this);
+            Piece B1 = new Bishop(Team.Black, new Position(2, 7), this);
+            Piece B2 = new Bishop(Team.Black, new Position(5, 7), this);
             Piece Q = new Queen(Team.Black,   new Position(3, 7), this);
             Piece K = new King(Team.Black,    new Position(4, 7), this);
             this.addPiece(R1);
