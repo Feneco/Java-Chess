@@ -84,7 +84,7 @@ public class Board {
         pieces.remove(p);
     }
 
-    public void capturePiece(Piece p) {
+    private void capturePiece(Piece p) {
         removePiece(p);
         capturedPieces.add(p);
     }
