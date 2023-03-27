@@ -1,5 +1,7 @@
 package xyz.feneco.backend;
 
+import java.util.ArrayList;
+
 public abstract class Piece {
     protected final Team team;
     protected Position position;
@@ -26,6 +28,19 @@ public abstract class Piece {
             if ( pieceAtDesiredPos != null )
                 e = board.isP1EnemyOfP2(this, pieceAtDesiredPos);
             return b && e;
+        }
+        return false;
+    }
+
+    public Boolean ShortCanMove(Position desiredPos) {
+        // I wrote it like this to facilitate debug
+        boolean a = isMoveValid(desiredPos);
+        if ( a ) { // Short-circuiting
+            boolean e = true;
+            Piece pieceAtDesiredPos = board.getPieceAt(desiredPos);
+            if ( pieceAtDesiredPos != null )
+                e = board.isP1EnemyOfP2(this, pieceAtDesiredPos);
+            return e;
         }
         return false;
     }
@@ -73,5 +88,18 @@ public abstract class Piece {
     @Override
     public String toString() {
         return team.getLabel() + " " + symbol.toString() + " at " + position.toString();
+    }
+
+    public ArrayList<Position> getValidPositions() {
+        ArrayList<Position> validPos = new ArrayList<>();
+        for(int i = 0; i<8; i++) {
+            for(int j = 0; j<8; j++) {
+                Position test = new Position(i, j);
+                if(canMove(test)){
+                    validPos.add(test);
+                }
+            }
+        }
+        return validPos;
     }
 }
