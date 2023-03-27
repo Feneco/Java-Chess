@@ -21,9 +21,10 @@ public class PlayerQuery {
     static public PlayerQueryAnswer query() {
         System.out.print("Make your move: ");
         Scanner input = new Scanner(System.in);
+        String textInput = input.nextLine();
+        input.close();
         Pattern move = Pattern.compile("^([A-H][1-8]){2}");
         Pattern resign = Pattern.compile("^(resign)");
-        String textInput = input.nextLine();
         Matcher m = move.matcher(textInput);
         Matcher r = resign.matcher(textInput);
         if (m.find()) {
@@ -45,6 +46,7 @@ public class PlayerQuery {
         Scanner input = new Scanner(System.in);
         System.out.print("Select piece to promote pawn: ");
         String textInput = input.nextLine();
+        input.close();
 
         Pattern Bishop = Pattern.compile("^B");
         Pattern Knight = Pattern.compile("^N");
