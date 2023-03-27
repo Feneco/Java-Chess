@@ -1,6 +1,6 @@
 package xyz.feneco.frontend;
 
-import xyz.feneco.backend.Position;
+import xyz.feneco.backend.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +39,36 @@ public class PlayerQuery {
             return new PlayerQueryAnswer(2, null, null  );
         }
         return new PlayerQueryAnswer(1, null, null);
+    }
+
+    static public int QueryPromotion() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Select piece to promote pawn: ");
+        String textInput = input.nextLine();
+
+        Pattern Bishop = Pattern.compile("^B");
+        Pattern Knight = Pattern.compile("^N");
+        Pattern Rook = Pattern.compile("^R");
+        Pattern Queen = Pattern.compile("^Q");
+        Matcher m;
+        m = Queen.matcher(textInput);
+        if (m.find()){
+            return 0;
+        }
+        m = Bishop.matcher(textInput);
+        if (m.find()){
+            return 1;
+        }
+        m = Knight.matcher(textInput);
+        if (m.find()){
+            return 2;
+        }
+        m = Rook.matcher(textInput);
+        if (m.find()){
+            return 3;
+        }
+        else {
+            return -1;
+        }
     }
 }
