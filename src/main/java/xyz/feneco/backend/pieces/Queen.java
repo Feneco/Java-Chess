@@ -33,17 +33,17 @@ public class Queen extends Piece {
             }
         }
         if ( diagMove ) {
-            Integer dx = Integer.signum(delta.getX());
-            Integer dy = Integer.signum(delta.getY());
-            Integer fx = desiredPos.getX();
-            Integer fy = desiredPos.getY();
-            for (int i = position.getX() + dx; i != fx; i += dx) {
-                for (int j = position.getY() + dy; j != fy; j += dy) {
-                    Position pTest = new Position(i, j);
-                    if (board.getPieceAt(pTest) != null) {
-                        return false;
-                    }
+            int dist = Math.abs(delta.getY());
+            int dx = (int) Math.signum(delta.getX());
+            int dy = (int) Math.signum(delta.getY());
+            int i = 1;
+            Position testPos = position.getAdd(dx, dy);
+            while (i != dist) {
+                if (board.getPieceAt(testPos) != null) {
+                    return false;
                 }
+                testPos = testPos.getAdd(dx, dy);
+                i++;
             }
         }
         return hMove || vMove || diagMove;
