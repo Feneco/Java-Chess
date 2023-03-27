@@ -26,16 +26,16 @@ public class Board {
         {
             Piece R1 = new Rook(Team.White,   new Position(0, 0), this);
             Piece R2 = new Rook(Team.White,   new Position(7, 0), this);
-            Piece K1 = new Knight(Team.White, new Position(1, 0), this);
-            Piece K2 = new Knight(Team.White, new Position(6, 0), this);
+            Piece N1 = new Knight(Team.White, new Position(1, 0), this);
+            Piece N2 = new Knight(Team.White, new Position(6, 0), this);
             Piece B1 = new Bishop(Team.White, new Position(2, 0), this);
             Piece B2 = new Bishop(Team.White, new Position(5, 0), this);
             Piece Q = new Queen(Team.White,   new Position(3, 0), this);
             Piece K = new King(Team.White,    new Position(4, 0), this);
             this.addPiece(R1);
             this.addPiece(R2);
-            this.addPiece(K1);
-            this.addPiece(K2);
+            this.addPiece(N1);
+            this.addPiece(N2);
             this.addPiece(B1);
             this.addPiece(B2);
             this.addPiece(Q);
@@ -49,16 +49,16 @@ public class Board {
         {
             Piece R1 = new Rook(Team.Black,   new Position(0, 7), this);
             Piece R2 = new Rook(Team.Black,   new Position(7, 7), this);
-            Piece K1 = new Knight(Team.Black, new Position(1, 7), this);
-            Piece K2 = new Knight(Team.Black, new Position(6, 7), this);
+            Piece N1 = new Knight(Team.Black, new Position(1, 7), this);
+            Piece N2 = new Knight(Team.Black, new Position(6, 7), this);
             Piece B1 = new Bishop(Team.Black, new Position(2, 7), this);
             Piece B2 = new Bishop(Team.Black, new Position(5, 7), this);
             Piece Q = new Queen(Team.Black,   new Position(3, 7), this);
             Piece K = new King(Team.Black,    new Position(4, 7), this);
             this.addPiece(R1);
             this.addPiece(R2);
-            this.addPiece(K1);
-            this.addPiece(K2);
+            this.addPiece(N1);
+            this.addPiece(N2);
             this.addPiece(B1);
             this.addPiece(B2);
             this.addPiece(Q);
@@ -179,7 +179,7 @@ public class Board {
         if ( king != null ) {
             ArrayList<Piece> enemies = getEnemyPieces();
             for (Piece e : enemies) {
-                if (e.canMove(king.position)) {
+                if (e.ShortCanMove(king.position)) {
                     retVal = true;
                 }
             }
@@ -200,6 +200,10 @@ public class Board {
         return playingTeam;
     }
 
+    public Team getOtherTeam() {
+        return playingTeam == Team.White ? Team.Black : Team.White;
+    }
+
     public final Integer getTeamDirection(Team team) {
         return team == Team.White ? 1 : -1;
     }
@@ -209,6 +213,21 @@ public class Board {
             return false;
         }
         return p1.getTeam() != p2.getTeam();
+    }
+
+    public final Boolean isPieceAt(Position pos){
+        return getPieceAt(pos) != null;
+    }
+
+    public final Boolean isPlayerInCheckMate() {
+        ArrayList<Piece> pieces = getPieces(playingTeam);
+        for(Piece p: pieces) {
+            ArrayList<Position> validPositions = p.getValidPositions();
+            if(validPositions.size() != 0){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

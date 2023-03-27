@@ -5,7 +5,7 @@ import xyz.feneco.backend.*;
 public class Knight extends Piece {
 
     public Knight(Team team, Position position, Board board) {
-        super(team, position, 'K', board);
+        super(team, position, 'N', board);
     }
 
     @Override
