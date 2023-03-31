@@ -14,29 +14,14 @@ public class Position {
         this.y = pos.getY();
     }
 
-    public int getX() {
-        return x;
-    }
+    public int getX() { return x; }
+    public int getY() { return y; }
 
-    public int getY() {
-        return y;
-    }
+    public Position add(int a, int b) { return new Position(this.x + a, this.y + b); }
+    public Position add(Position pos) { return this.add(pos.getX(), pos.getY()); }
 
-    public Position add(int a, int b) {
-        return new Position(this.x + a, this.y + b);
-    }
-
-    public Position add(Position pos) {
-        return new Position(this.x + pos.getX(), this.y + pos.getY());
-    }
-
-    public Position sub(int a, int b) {
-        return new Position(this.x + a, this.y + b);
-    }
-
-    public Position sub(Position pos) {
-        return new Position(x - pos.getX(), y - pos.getY());
-    }
+    public Position sub(int a, int b) { return new Position(this.x + a, this.y + b); }
+    public Position sub(Position pos) { return this.sub(pos.getX(), pos.getY()); }
 
     public boolean equals(Position pos) {
         return x == pos.getX() && y == pos.getY();
@@ -47,7 +32,7 @@ public class Position {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + x + ", " + y + "]";
     }
 }
