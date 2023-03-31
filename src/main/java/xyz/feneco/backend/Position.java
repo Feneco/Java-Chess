@@ -24,11 +24,10 @@ public class Position {
     public Position sub(Position pos) { return this.sub(pos.getX(), pos.getY()); }
 
     public boolean equals(Position pos) {
-        return x == pos.getX() && y == pos.getY();
-    }
-
-    public static boolean equals(Position pos1, Position pos2) {
-        return pos1.equals(pos2);
+        if (pos != null) {
+            return x == pos.getX() && y == pos.getY();
+        }
+        return false;
     }
 
     @Override
