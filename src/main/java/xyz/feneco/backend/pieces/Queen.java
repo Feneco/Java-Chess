@@ -14,38 +14,6 @@ public class Queen extends SlidingPieces {
     protected List<Position> moveMask(Position position) {
         List<Position> ret = new ArrayList<>();
         // There is probably a better way of doing this
-        for (int i = position.x(); i < 8; i++) {
-            for (int j = position.y(); j < 8; j++) {
-                if(i == position.y() || j == position.x()) {
-                    continue;
-                }
-                ret.add(new Position(i, j));
-            }
-        }
-        for (int i = position.x(); i >= 0; i--) {
-            for (int j = position.y(); j < 8; j++) {
-                if(i == position.y() || j == position.x()) {
-                    continue;
-                }
-                ret.add(new Position(i, j));
-            }
-        }
-        for (int i = position.x(); i >= 0; i--) {
-            for (int j = position.y(); j >= 0; j--) {
-                if(i == position.y() || j == position.x()) {
-                    continue;
-                }
-                ret.add(new Position(i, j));
-            }
-        }
-        for (int i = position.x(); i < 8; i++) {
-            for (int j = position.y(); j >= 0; j--) {
-                if(i == position.y() || j == position.x()) {
-                    continue;
-                }
-                ret.add(new Position(i, j));
-            }
-        }
         for (int i = 0; i < 8; i++) {
             if(i == position.y()){
                 continue;
@@ -57,6 +25,17 @@ public class Queen extends SlidingPieces {
                 continue;
             }
             ret.add(new Position(j, position.y()));
+        }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(i == position.x() || j == position.y()) {
+                    continue;
+                }
+                Position delta = position.sub(i, j);
+                if ( Math.abs(delta.x()) == Math.abs(delta.y()) ) {
+                    ret.add(new Position(i, j));
+                }
+            }
         }
         return ret;
     }
