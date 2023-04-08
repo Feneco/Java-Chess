@@ -55,6 +55,6 @@ public abstract class Piece {
 
     @Override
     public String toString() {
-        return symbol.toString() + " at " + position.toString() + ". " + (notMoved?"moved":"notMoved");
+        return symbol.toString() + " at " + position.toString() + ". " + (notMoved?"un moved":"moved");
     }
 }
