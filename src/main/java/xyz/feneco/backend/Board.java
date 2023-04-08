@@ -5,21 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private final List<Piece> pieces;
+    private final List<Piece> boardPieces;
     private final List<Piece> capturedPieces;
 
-    public Board(List<Piece> pieces, List<Piece> capturedPieces) {
-        this.pieces         = pieces;
+    public Board(List<Piece> boardPieces, List<Piece> capturedPieces) {
+        this.boardPieces = boardPieces;
         this.capturedPieces = capturedPieces;
     }
 
     public List<Piece> getPieces() {
-        return pieces;
+        return boardPieces;
     }
 
     public List<Piece> getPieces(Team team) {
         ArrayList<Piece> ret = new ArrayList<>();
-        for( Piece piece : pieces ) {
+        for( Piece piece : boardPieces) {
             if ( piece.getTeam() == team ) {
                 ret.add(piece);
             }
@@ -42,18 +42,18 @@ public class Board {
     }
 
     public void addPiece(Piece piece) {
-        if ( pieces.contains(piece) ){
+        if ( boardPieces.contains(piece) ){
             throw new IllegalArgumentException("Piece is already on pieces list.");
         }
-        pieces.add(piece);
+        boardPieces.add(piece);
     }
 
     public void removePiece(Piece piece) {
-        pieces.remove(piece);
+        boardPieces.remove(piece);
     }
 
     public void addCapturedPiece(Piece piece){
-        if ( pieces.contains(piece) ){
+        if ( boardPieces.contains(piece) ){
             throw new IllegalArgumentException("Piece is already on captured pieces list.");
         }
         capturedPieces.add(piece);
@@ -64,7 +64,7 @@ public class Board {
     }
 
     public void capturePiece(Piece piece) throws IllegalArgumentException {
-        if ( pieces.remove(piece) ){
+        if ( boardPieces.remove(piece) ){
             capturedPieces.add(piece);
             return;
         }
@@ -72,7 +72,7 @@ public class Board {
     }
 
     public Piece getPieceAt(Position pos) {
-        for( Piece piece : pieces ) {
+        for( Piece piece : boardPieces) {
             if (piece.position.equals(pos)) {
                 return piece;
             }
@@ -81,7 +81,7 @@ public class Board {
     }
 
     public final boolean isPieceAt(Position pos) {
-        for( Piece piece : pieces ) {
+        for( Piece piece : boardPieces) {
             if (piece.position.equals(pos)) {
                 return true;
             }
@@ -90,7 +90,7 @@ public class Board {
     }
 
     public final King getKing(Team team) {
-        for (Piece p : pieces) {
+        for (Piece p : boardPieces) {
             if ( p.getTeam() == team && p instanceof King king ) {
                 return king;
             }
