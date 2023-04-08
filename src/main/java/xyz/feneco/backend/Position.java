@@ -10,22 +10,22 @@ public class Position {
     }
 
     public Position(Position pos) {
-        this.x = pos.getX();
-        this.y = pos.getY();
+        this.x = pos.x();
+        this.y = pos.y();
     }
 
-    public int getX() { return x; }
-    public int getY() { return y; }
+    public int x() { return x; }
+    public int y() { return y; }
 
     public Position add(int a, int b) { return new Position(this.x + a, this.y + b); }
-    public Position add(Position pos) { return this.add(pos.getX(), pos.getY()); }
+    public Position add(Position pos) { return this.add(pos.x(), pos.y()); }
 
     public Position sub(int a, int b) { return new Position(this.x + a, this.y + b); }
-    public Position sub(Position pos) { return this.sub(pos.getX(), pos.getY()); }
+    public Position sub(Position pos) { return this.sub(pos.x(), pos.y()); }
 
     public boolean equals(Position pos) {
         if (pos != null) {
-            return x == pos.getX() && y == pos.getY();
+            return x == pos.x() && y == pos.y();
         }
         return false;
     }
