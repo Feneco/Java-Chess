@@ -13,8 +13,8 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public List<Position> canMove(Position desiredPosition, Board board) {
+    public boolean canMove(Position desiredPosition, Board board) {
         // TODO
-        return null;
+        return false;
     }
 }

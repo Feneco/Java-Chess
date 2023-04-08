@@ -20,7 +20,7 @@ public abstract class Piece {
         return null;
     }
 
-    public abstract List<Position> canMove(Position desiredPosition, Board board);
+    public abstract boolean canMove(Position desiredPosition, Board board);
 
     public final Team getTeam() {
         return team;
