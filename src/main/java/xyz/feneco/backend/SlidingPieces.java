@@ -1,6 +1,5 @@
 package xyz.feneco.backend;
 
-import java.util.Comparator;
 import java.util.List;
 
 public abstract class SlidingPieces extends Piece {
@@ -27,10 +26,8 @@ public abstract class SlidingPieces extends Piece {
                 Position delta = desiredPosition.sub(position);
                 int dx = Integer.signum(delta.x());
                 int xStartPos = position.x();
-                int xEndPos = desiredPosition.x();
                 int dy = Integer.signum(delta.y());
                 int yStartPos = position.y();
-                int yEndPos = desiredPosition.y();
 
                 int maxCount = Math.max(Math.abs(delta.x()), Math.abs(delta.y()));
                 Position testpos = new Position(xStartPos + dx, yStartPos + dy);
