@@ -1,5 +1,6 @@
 package xyz.feneco.backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Piece {
@@ -16,8 +17,16 @@ public abstract class Piece {
     }
 
     public List<Position> getValidPositions(Position desiredPosition, Board board){
-        //Todo
-        return null;
+        List<Position> ret = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Position testPos = new Position(i, j);
+                if (canMove(testPos, board)){
+                    ret.add(testPos);
+                }
+            }
+        }
+        return ret;
     }
 
     public abstract boolean canMove(Position desiredPosition, Board board);
