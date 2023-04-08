@@ -41,32 +41,34 @@ public class Board {
         return ret;
     }
 
-    public Board addPiece(Piece piece) {
+    public void addPiece(Piece piece) {
+        if ( pieces.contains(piece) ){
+            throw new IllegalArgumentException("Piece is already on pieces list.");
+        }
         pieces.add(piece);
-        return this;
     }
 
-    public Board removePiece(Piece piece) {
+    public void removePiece(Piece piece) {
         pieces.remove(piece);
-        return this;
     }
 
-    public Board addCapturedPiece(Piece piece){
+    public void addCapturedPiece(Piece piece){
+        if ( pieces.contains(piece) ){
+            throw new IllegalArgumentException("Piece is already on captured pieces list.");
+        }
         capturedPieces.add(piece);
-        return this;
     }
 
-    public Board removeCapturedPiece(Piece piece){
-        capturedPieces.remove(pieces);
-        return this;
+    public void removeCapturedPiece(Piece piece){
+        capturedPieces.remove(piece);
     }
 
-    public Board capturePiece(Piece p) {
-        Board b = removePiece(p);
-        List<Piece> listCapturedPieces = new ArrayList<>(capturedPieces);
-        listCapturedPieces.add(p);
-        return new Board(b.getPieces(), listCapturedPieces);
-
+    public void capturePiece(Piece piece) throws IllegalArgumentException {
+        if ( pieces.remove(piece) ){
+            capturedPieces.add(piece);
+            return;
+        }
+        throw new IllegalArgumentException("Piece to remove is not on board.");
     }
 
     public Piece getPieceAt(Position pos) {
