@@ -1,105 +1,51 @@
 package xyz.feneco.backend;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Piece {
     protected final Team team;
     protected Position position;
     protected final Character symbol;
-    protected final Board board;
-    private Boolean notMoved;
+    private boolean notMoved;
 
-
-    protected Piece(Team team, Position position, Character symbol, Board board) {
+    protected Piece(Team team, Position position, Character symbol, boolean notMoved) {
         this.team = team;
         this.position = position;
         this.symbol = symbol;
-        this.board = board;
-        notMoved = true;
+        this.notMoved = notMoved;
     }
 
-    public Boolean canMove(Position desiredPos) {
-        // I wrote it like this to facilitate debug
-        boolean a = isMoveValid(desiredPos);
-        if ( a ) { // Short-circuiting
-            boolean b = !board.movePutKingInCheck(position, desiredPos);
-            boolean e = true;
-            Piece pieceAtDesiredPos = board.getPieceAt(desiredPos);
-            if ( pieceAtDesiredPos != null )
-                e = board.isP1EnemyOfP2(this, pieceAtDesiredPos);
-            return b && e;
-        }
-        return false;
+    public List<Position> getValidPositions(Position desiredPosition, Board board){
+        //Todo
+        return null;
     }
 
-    public Boolean ShortCanMove(Position desiredPos) {
-        // I wrote it like this to facilitate debug
-        boolean a = isMoveValid(desiredPos);
-        if ( a ) { // Short-circuiting
-            boolean e = true;
-            Piece pieceAtDesiredPos = board.getPieceAt(desiredPos);
-            if ( pieceAtDesiredPos != null )
-                e = board.isP1EnemyOfP2(this, pieceAtDesiredPos);
-            return e;
-        }
-        return false;
-    }
-
-    protected abstract Boolean isMoveValid(Position desiredPos);
-
-    /**
-     * This function will set the piece position.
-     * It will change the notMoved variable, so it should be used while in game.
-     *
-     * @param pos The position to move this piece to.
-     */
-    public void moveTo(Position pos) {
-        notMoved = false;
-        setPosition(pos);
-    }
+    public abstract List<Position> canMove(Position desiredPosition, Board board);
 
     public final Team getTeam() {
         return team;
     }
-
     public final Position getPosition() {
         return position;
     }
-
-    /**
-     * This function will hard set the piece position.
-     * It will not change the notMoved variable, so it should be used
-     * in testing and debugging.
-     *
-     * @param pos The position to move this piece to.
-     */
-    public void setPosition(Position pos) {
-        position = pos;
-    }
-
     public final Character getSymbol() {
         return symbol;
     }
-
-    public final Boolean getNotMoved() {
+    public final boolean notMoved() {
         return notMoved;
+    }
+
+    public void move(Position position) {
+        notMoved = false;
+        this.position = position;
+    }
+
+    public boolean isEnemy(Piece piece) {
+        return this.getTeam() != piece.getTeam();
     }
 
     @Override
     public String toString() {
-        return team.getLabel() + " " + symbol.toString() + " at " + position.toString();
-    }
-
-    public ArrayList<Position> getValidPositions() {
-        ArrayList<Position> validPos = new ArrayList<>();
-        for(int i = 0; i<8; i++) {
-            for(int j = 0; j<8; j++) {
-                Position test = new Position(i, j);
-                if(canMove(test)){
-                    validPos.add(test);
-                }
-            }
-        }
-        return validPos;
+        return symbol.toString() + " at " + position.toString() + ". " + (notMoved?"moved":"notMoved");
     }
 }
