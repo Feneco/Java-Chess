@@ -13,4 +13,6 @@ public enum Team {
     public String getLabel() {
         return label;
     }
+
+    public int getDirection() {if (this.ordinal() == 0) return 1; return -1;}
 }
