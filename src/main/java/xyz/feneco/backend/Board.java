@@ -70,18 +70,21 @@ public class Board {
     }
 
     public Piece getPieceAt(Position pos) {
-        if ( isPieceAt(pos) ) {
-            for( Piece piece : pieces ) {
-                if ( piece.getPosition().equals(pos) ) {
-                    return piece;
-                }
+        for( Piece piece : pieces ) {
+            if (piece.position.equals(pos)) {
+                return piece;
             }
         }
         return null;
     }
 
-    public final boolean isPieceAt(Position pos){
-        return getPieceAt(pos) != null;
+    public final boolean isPieceAt(Position pos) {
+        for( Piece piece : pieces ) {
+            if (piece.position.equals(pos)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public final King getKing(Team team) {
