@@ -8,10 +8,10 @@ public record Position ( int x, int y ) {
     public int x() { return x; }
     public int y() { return y; }
 
-    public Position add(int a, int b) { return new Position(this.x + a, this.y + b); }
+    public Position add(int x, int y) { return new Position(this.x + x, this.y + y); }
     public Position add(Position pos) { return this.add(pos.x(), pos.y()); }
 
-    public Position sub(int a, int b) { return new Position(this.x - a, this.y - b); }
+    public Position sub(int x, int y) { return new Position(this.x - x, this.y - y); }
     public Position sub(Position pos) { return this.sub(pos.x(), pos.y()); }
 
     public boolean equals(Position pos) {
