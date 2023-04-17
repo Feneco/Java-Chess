@@ -10,7 +10,14 @@ public class Knight extends Piece {
 
     @Override
     public boolean canMove(Position desiredPosition, Board board) {
-        // TODO
-        return false;
+        Position delta = desiredPosition.sub(position);
+        int dx = Math.abs(delta.x());
+        int dy = Math.abs(delta.y());
+        if (board.isPieceAt(desiredPosition)){
+            if (!board.getPieceAt(desiredPosition).isEnemy(this)){
+                return false;
+            }
+        }
+        return (dx == 1 && dy == 2) || (dx == 2 && dy == 1);
     }
 }
