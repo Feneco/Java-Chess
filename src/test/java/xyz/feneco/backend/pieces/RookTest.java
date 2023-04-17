@@ -34,6 +34,7 @@ class RookTest {
         assertTrue(wRook1.canMove(new Position(4, 6), board));
 
         assertFalse(wRook1.canMove(wRook2.getPosition(), board));
+        assertTrue(wRook1.canMove(new Position(4, 2), board));
         assertFalse(wRook1.canMove(bRook4.getPosition(), board));
         assertFalse(wRook1.canMove(new Position(4, 0), board));
         assertFalse(wRook1.canMove(new Position(7, 4), board));
