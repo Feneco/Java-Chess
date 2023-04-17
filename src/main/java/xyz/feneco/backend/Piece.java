@@ -44,9 +44,9 @@ public abstract class Piece {
         return notMoved;
     }
 
-    public void move(Position position) {
+    public void move(Position toPosition) {
         notMoved = false;
-        this.position = position;
+        this.position = toPosition;
     }
 
     public boolean isEnemy(Piece piece) {
