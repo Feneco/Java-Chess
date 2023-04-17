@@ -29,6 +29,9 @@ public class King extends Piece  {
             if (board.isPieceAt(rookTestPosition)) {
                 Piece mayBeRook = board.getPieceAt(rookTestPosition);
                 if (mayBeRook instanceof Rook rook) {
+                    if (rook.isEnemy(this)){
+                        return false;
+                    }
                     if (kingSide == 1) {
                         Position testPos1 = new Position(5, position.y());
                         Position testPos2 = new Position(6, position.y());
@@ -40,6 +43,11 @@ public class King extends Piece  {
                         return !board.isPieceAt(testPos1) && !board.isPieceAt(testPos2) && !board.isPieceAt(testPos3) && rook.notMoved();
                     }
                 }
+            }
+        }
+        if (board.isPieceAt(desiredPosition)) {
+            if (!board.getPieceAt(desiredPosition).isEnemy(this)){
+                return false;
             }
         }
         return move1Distance;
