@@ -29,6 +29,13 @@ public abstract class Piece {
         return ret;
     }
 
+    /** The classes implementing this should test if there is a piece at the desired position and if it is an
+     * enemy or not. Implementations should obviously check for special conditions, such as en-passant, castling and
+     * promotion, but shouldn't report the condition.
+     * @param desiredPosition The desired position we want to move the piece to.
+     * @param board the current board being played
+     * @return Whether the piece can move to the desiredPosition.
+     */
     public abstract boolean canMove(Position desiredPosition, Board board);
 
     public final Team getTeam() {
