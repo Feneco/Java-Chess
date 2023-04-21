@@ -1,7 +1,7 @@
 package xyz.feneco.backend;
 
 public class TestGame implements Game {
-    private Board board;
+    private final Board board;
     private Team team;
 
     public TestGame(Team playingTeam){
@@ -12,11 +12,6 @@ public class TestGame implements Game {
     @Override
     public boolean movePutKingInCheck(Position from, Position to) {
         return false;
-    }
-
-    @Override
-    public boolean isEnemy(Piece piece1, Piece piece2) {
-        return piece1.getTeam() == piece2.getTeam();
     }
 
     @Override
