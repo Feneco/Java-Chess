@@ -1,16 +1,16 @@
 package xyz.feneco.backend;
 
-public class TestGame implements Game {
+public class MockGame implements Game {
     private final Board board;
     private Team team;
 
-    public TestGame(Team playingTeam){
+    public MockGame(Team playingTeam){
         team = playingTeam;
-        board = BoardFactory.getEmptyBoard();
+        board = new EmptyBoardFactory().getBoard();
     }
 
     @Override
-    public boolean movePutKingInCheck(Position from, Position to) {
+    public boolean movePutKingInCheck() {
         return false;
     }
 
