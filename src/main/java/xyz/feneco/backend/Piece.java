@@ -47,6 +47,9 @@ public abstract class Piece {
     public final Character getSymbol() {
         return symbol;
     }
+    public final void setNotMoved(boolean notMoved) {
+        this.notMoved = notMoved;
+    }
     public final boolean notMoved() {
         return notMoved;
     }
