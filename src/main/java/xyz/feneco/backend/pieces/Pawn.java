@@ -1,8 +1,6 @@
 package xyz.feneco.backend.pieces;
 
 import xyz.feneco.backend.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Pawn extends Piece {
     private Boolean enPassant;

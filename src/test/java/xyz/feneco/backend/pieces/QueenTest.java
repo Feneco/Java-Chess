@@ -1,12 +1,11 @@
 package xyz.feneco.backend.pieces;
 
-import org.junit.jupiter.api.Test;
-import xyz.feneco.backend.pieces.Queen;
-import xyz.feneco.backend.*;
-
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import xyz.feneco.backend.*;
 
 class QueenTest {
 

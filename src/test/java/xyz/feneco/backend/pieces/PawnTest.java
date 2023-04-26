@@ -1,9 +1,9 @@
 package xyz.feneco.backend.pieces;
 
 import org.junit.jupiter.api.Test;
-import xyz.feneco.backend.*;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import xyz.feneco.backend.*;
 
 class PawnTest {
 
@@ -57,10 +57,10 @@ class PawnTest {
         wPawn1.move(new Position(1, 4));
         assertFalse(wPawn1.getEnPassant());
 
-        Pawn wPawn2 = new Pawn(Team.White, new Position(1, 1), true);
-        wPawn1.move(new Position(1, 1));
+        Pawn wPawn2 = new Pawn(Team.Black, new Position(2, 6), true);
+        wPawn2.move(new Position(2, 5));
         assertFalse(wPawn1.getEnPassant());
-        wPawn1.move(new Position(1, 2));
+        wPawn2.move(new Position(2, 4));
         assertFalse(wPawn1.getEnPassant());
     }
 }
