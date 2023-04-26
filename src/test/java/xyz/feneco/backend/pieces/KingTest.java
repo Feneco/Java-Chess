@@ -16,7 +16,7 @@ class KingTest {
 
             Piece bQueen1 = new Queen(Team.Black, new Position(3, 1), true);
 
-            Board b = BoardFactory.getEmptyBoard();
+            Board b = new EmptyBoardFactory().getBoard();
             b.addPiece(wKing1);
             b.addPiece(wRook1);
             b.addPiece(wRook2);
@@ -36,7 +36,7 @@ class KingTest {
 
             Piece bQueen1 = new Queen(Team.Black, new Position(3, 1), true);
 
-            Board b = BoardFactory.getEmptyBoard();
+            Board b = new EmptyBoardFactory().getBoard();
             b.addPiece(wKing1);
             b.addPiece(wRook1);
             b.addPiece(wRook2);

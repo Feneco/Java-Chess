@@ -20,7 +20,7 @@ class BishopTest {
         Piece bBishop4 = new Bishop(Team.Black, new Position(7, 7), true);
         Piece bBishop5 = new Bishop(Team.Black, new Position(0, 0), true);
 
-        Board b = BoardFactory.getEmptyBoard();
+        Board b = new EmptyBoardFactory().getBoard();
         b.addPiece(wBishop1);
         b.addPiece(wBishop2);
         b.addPiece(bBishop1);

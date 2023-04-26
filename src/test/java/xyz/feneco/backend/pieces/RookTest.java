@@ -17,7 +17,7 @@ class RookTest {
         Piece bRook3 = new Rook(Team.Black, new Position(4, 7), true);
         Piece bRook4 = new Rook(Team.Black, new Position(5, 7), true);
 
-        Board board = BoardFactory.getEmptyBoard();
+        Board board = new EmptyBoardFactory().getBoard();
         board.addPiece(wRook1);
         board.addPiece(wRook2);
         board.addPiece(bRook1);

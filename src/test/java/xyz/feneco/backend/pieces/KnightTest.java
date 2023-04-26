@@ -16,7 +16,7 @@ class KnightTest {
         Piece bBishop2 = new Bishop(Team.Black, new Position(5, 3), true);
         Piece bBishop3 = new Bishop(Team.Black, new Position(6, 3), true);
 
-        Board board = BoardFactory.getEmptyBoard();
+        Board board = new EmptyBoardFactory().getBoard();
         board.addPiece(wKnight1);
         board.addPiece(wKnight2);
         board.addPiece(bBishop1);

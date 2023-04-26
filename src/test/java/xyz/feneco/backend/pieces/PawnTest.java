@@ -10,7 +10,7 @@ class PawnTest {
     @Test
     void canMove() {
         {
-            Board b = BoardFactory.getEmptyBoard();
+            Board b = new EmptyBoardFactory().getBoard();
             Piece wPawn1 = new Pawn(Team.White, new Position(1, 1), true);
             b.addPiece(wPawn1);
 
@@ -27,7 +27,7 @@ class PawnTest {
             assertFalse(wPawn1.canMove(new Position(0, 2), b));
         }
         { // EnPassant test
-            Board b = BoardFactory.getEmptyBoard();
+            Board b = new EmptyBoardFactory().getBoard();
             Piece wPawn1 = new Pawn(Team.White, new Position(1, 4), false);
             b.addPiece(wPawn1);
             Piece bPawn1 = new Pawn(Team.Black, new Position(2, 6), true);

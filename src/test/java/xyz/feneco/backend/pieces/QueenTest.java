@@ -20,7 +20,7 @@ class QueenTest {
         Piece bQueen2 = new Queen(Team.Black, new Position(6, 4), true);
         Piece bQueen3 = new Queen(Team.Black, new Position(2, 6), true);
         Piece bQueen4 = new Queen(Team.Black, new Position(5, 7), true);
-        Board board = BoardFactory.getEmptyBoard();
+        Board board = new EmptyBoardFactory().getBoard();
         board.addPiece(wQueen1);
         board.addPiece(wQueen2);
         board.addPiece(wQueen3);
