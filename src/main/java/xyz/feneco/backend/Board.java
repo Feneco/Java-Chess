@@ -42,6 +42,9 @@ public class Board {
     }
 
     public void addPiece(Piece piece) {
+        if (piece == null) {
+            throw new IllegalArgumentException("piece is null!.");
+        }
         if ( boardPieces.contains(piece) ){
             throw new IllegalArgumentException("Piece is already on pieces list.");
         }
@@ -49,26 +52,46 @@ public class Board {
     }
 
     public void removePiece(Piece piece) {
+        if (piece == null) {
+            throw new IllegalArgumentException("piece is null!.");
+        }
         boardPieces.remove(piece);
     }
 
     public void addCapturedPiece(Piece piece){
+        if (piece == null) {
+            throw new IllegalArgumentException("piece is null!.");
+        }
         if ( boardPieces.contains(piece) ){
             throw new IllegalArgumentException("Piece is already on captured pieces list.");
         }
         capturedPieces.add(piece);
     }
 
-    public void removeCapturedPiece(Piece piece){
+    public void removeCapturedPiece(Piece piece) {
+        if (piece == null) {
+            throw new IllegalArgumentException("piece is null!.");
+        }
         capturedPieces.remove(piece);
     }
 
     public void capturePiece(Piece piece) throws IllegalArgumentException {
+        if (piece == null) {
+            throw new IllegalArgumentException("piece is null!.");
+        }
         if ( boardPieces.remove(piece) ){
             capturedPieces.add(piece);
             return;
         }
         throw new IllegalArgumentException("Piece to remove is not on board.");
+    }
+
+    public void unCapturePiece(Piece piece) {
+        if ( capturedPieces.remove(piece) ) {
+            boardPieces.add(piece);
+        } else {
+            throw new IllegalArgumentException("Cant find captured piece");
+        }
     }
 
     public Piece getPieceAt(Position pos) {
