@@ -1,39 +1,45 @@
 package xyz.feneco.backend.pieces;
 
-import org.junit.jupiter.api.Test;
-import xyz.feneco.backend.Board;
-import xyz.feneco.backend.Piece;
-import xyz.feneco.backend.Position;
-import xyz.feneco.backend.Team;
+import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import xyz.feneco.backend.*;
 
 class BishopTest {
 
     @Test
-    void isMoveValid() {
-        Board board = new Board();
-        Piece wBishop1 = new Bishop(Team.White, new Position(4, 4), board);
-        Piece wBishop2 = new Bishop(Team.White, new Position(3, 5), board);
-        Piece bPawn1 = new Pawn(Team.Black, new Position(5, 5), board);
-        Piece bPawn2 = new Pawn(Team.Black, new Position(6, 6), board);
-        Piece bPawn3 = new Pawn(Team.Black, new Position(4, 2), board);
-        Piece bPawn4 = new Pawn(Team.Black, new Position(1, 5), board);
-        board.addPiece(wBishop1);
-        board.addPiece(wBishop2);
-        board.addPiece(bPawn1);
-        board.addPiece(bPawn2);
-        board.addPiece(bPawn3);
-        board.addPiece(bPawn4);
+    void moveMask() {
+        Piece wBishop1 = new Bishop(Team.White, new Position(4, 4), true);
+        Piece wBishop2 = new Bishop(Team.White, new Position(6, 2), true);
 
-        assertTrue(wBishop1.canMove(bPawn1.getPosition()));
-        assertFalse(wBishop1.canMove(bPawn2.getPosition()));
-        assertFalse(wBishop1.canMove(bPawn3.getPosition()));
-        assertFalse(wBishop1.canMove(bPawn4.getPosition()));
+        Piece bBishop1 = new Bishop(Team.Black, new Position(3, 3), true);
+        Piece bBishop2 = new Bishop(Team.Black, new Position(2, 6), true);
+        Piece bBishop3 = new Bishop(Team.Black, new Position(4, 6), true);
+        Piece bBishop4 = new Bishop(Team.Black, new Position(7, 7), true);
+        Piece bBishop5 = new Bishop(Team.Black, new Position(0, 0), true);
 
-        assertFalse(wBishop1.canMove(wBishop2.getPosition()));
-        assertTrue(wBishop1.canMove(new Position(1, 1)));
-        assertTrue(wBishop1.canMove(new Position(6, 2)));
-        assertFalse(wBishop1.canMove(new Position(4, 7)));
+        Board b = new EmptyBoardFactory().getBoard();
+        b.addPiece(wBishop1);
+        b.addPiece(wBishop2);
+        b.addPiece(bBishop1);
+        b.addPiece(bBishop2);
+        b.addPiece(bBishop3);
+        b.addPiece(bBishop4);
+        b.addPiece(bBishop5);
+
+        List<Position> validPositions = wBishop1.getValidPositions(wBishop1.getPosition(), b);
+        assertFalse(validPositions.contains(wBishop1.getPosition()));
+        assertFalse(validPositions.contains(wBishop2.getPosition()));
+
+        assertTrue(validPositions.contains(bBishop1.getPosition()));
+        assertTrue(validPositions.contains(bBishop2.getPosition()));
+        assertFalse(validPositions.contains(bBishop3.getPosition()));
+        assertTrue(validPositions.contains(bBishop4.getPosition()));
+
+        assertFalse(validPositions.contains(new Position(2, 2)));
+        assertFalse(validPositions.contains(new Position(6, 1)));
+        assertFalse(validPositions.contains(new Position(4, 5)));
     }
 }

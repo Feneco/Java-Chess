@@ -1,51 +1,47 @@
 package xyz.feneco.backend.pieces;
 
-import org.junit.jupiter.api.Test;
-import xyz.feneco.backend.*;
+import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import xyz.feneco.backend.*;
 
 class QueenTest {
 
     @Test
-    void isMoveValid() {
-        {
-            Board board = new Board();
-            Piece bQueen1 = new Queen(Team.Black, new Position(4, 4), board);
-            Piece wPawn1 = new Pawn(Team.White, new Position(0, 0), board);
-            Piece wPawn2 = new Pawn(Team.White, new Position(7, 7), board);
-            Piece wPawn3 = new Pawn(Team.White, new Position(6, 2), board);
-            Piece wPawn4 = new Pawn(Team.White, new Position(2, 6), board);
-            Piece wPawn5 = new Pawn(Team.White, new Position(4, 2), board);
-            Piece bPawn1 = new Pawn(Team.Black, new Position(1, 1), board);
-            board.addPiece(bQueen1);
-            board.addPiece(wPawn1);
-            board.addPiece(wPawn2);
-            board.addPiece(wPawn3);
-            board.addPiece(wPawn4);
-            board.addPiece(wPawn5);
-            board.addPiece(bPawn1);
+    void moveMask() {
+        Piece wQueen1 = new Queen(Team.White, new Position(4, 4), true);
+        Piece wQueen2 = new Queen(Team.White, new Position(1, 4), true);
+        Piece wQueen3 = new Queen(Team.White, new Position(5, 2), true);
 
-            assertFalse(bQueen1.canMove(wPawn1.getPosition()));
-            assertFalse(bQueen1.canMove(bPawn1.getPosition()));
-            assertTrue(bQueen1.canMove(wPawn2.getPosition()));
-            assertTrue(bQueen1.canMove(wPawn3.getPosition()));
-            assertTrue(bQueen1.canMove(wPawn4.getPosition()));
-            assertTrue(bQueen1.canMove(wPawn5.getPosition()));
-        }
-        {
-            Board board = new Board();
-            board.initBoard();
-            board.movePiece(new Position(4,1), new Position(4, 3));
-            board.changeTeam();
-            board.movePiece(new Position(4,6), new Position(4, 4));
-            board.changeTeam();
-            MovReport mr = board.movePiece(new Position(3,0), new Position(7, 4));
-            assertEquals(mr, MovReport.Normal);
-            assertNotNull(board.getPieceAt(new Position(7,4)));
-            board.changeTeam();
-            mr = board.movePiece(new Position(2,6), new Position(2, 4));
-            assertEquals(mr, MovReport.Normal);
-        }
+        Piece bQueen1 = new Queen(Team.Black, new Position(3, 3), true);
+        Piece bQueen2 = new Queen(Team.Black, new Position(6, 4), true);
+        Piece bQueen3 = new Queen(Team.Black, new Position(2, 6), true);
+        Piece bQueen4 = new Queen(Team.Black, new Position(5, 7), true);
+        Board board = new EmptyBoardFactory().getBoard();
+        board.addPiece(wQueen1);
+        board.addPiece(wQueen2);
+        board.addPiece(wQueen3);
+        board.addPiece(bQueen1);
+        board.addPiece(bQueen2);
+        board.addPiece(bQueen3);
+        board.addPiece(bQueen4);
+
+
+        List<Position> positions = wQueen1.getValidPositions(wQueen1.getPosition(), board);
+        assertFalse(positions.contains(wQueen1.getPosition()));
+        assertFalse(positions.contains(wQueen2.getPosition()));
+        assertFalse(positions.contains(wQueen3.getPosition()));
+        assertTrue(positions.contains(bQueen1.getPosition()));
+        assertTrue(positions.contains(bQueen2.getPosition()));
+        assertTrue(positions.contains(bQueen3.getPosition()));
+        assertFalse(positions.contains(bQueen4.getPosition()));
+
+        assertTrue(positions.contains(new Position(2, 4)));
+        assertTrue(positions.contains(new Position(7, 7)));
+        assertTrue(positions.contains(new Position(7, 1)));
+        assertFalse(positions.contains(new Position(7, 4)));
+        assertFalse(positions.contains(new Position(0, 0)));
     }
 }

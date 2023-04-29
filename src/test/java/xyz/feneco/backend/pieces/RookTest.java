@@ -1,36 +1,43 @@
 package xyz.feneco.backend.pieces;
 
 import org.junit.jupiter.api.Test;
-import xyz.feneco.backend.*;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import xyz.feneco.backend.*;
 
 class RookTest {
 
     @Test
-    void isMoveValid() {
-        {
-            Board board = new Board();
-            Piece bRook1 = new Rook(Team.Black, new Position(4, 4), board);
-            Piece wPawn1 = new Pawn(Team.White, new Position(7, 4), board);
-            Piece wPawn2 = new Pawn(Team.White, new Position(4, 2), board);
-            Piece wPawn3 = new Pawn(Team.White, new Position(4, 1), board);
-            Piece wPawn4 = new Pawn(Team.White, new Position(2, 3), board);
-            Piece bPawn1 = new Pawn(Team.Black, new Position(2, 4), board);
-            board.addPiece(bRook1);
-            board.addPiece(wPawn1);
-            board.addPiece(wPawn2);
-            board.addPiece(wPawn3);
-            board.addPiece(wPawn4);
-            board.addPiece(bPawn1);
+    void canMove() {
+        Piece wRook1 = new Rook(Team.White, new Position(4, 4), true);
+        Piece wRook2 = new Rook(Team.White, new Position(4, 1), true);
 
-            assertTrue(bRook1.canMove(new Position(4,6)));
-            assertTrue(bRook1.canMove(new Position(6,4)));
-            assertFalse(bRook1.canMove(new Position(5,3)));
-            assertTrue(bRook1.canMove(new Position(7,4)));
-            assertFalse(bRook1.canMove(new Position(4,1)));
-            assertFalse(bRook1.canMove(new Position(2,4)));
-            assertFalse(bRook1.canMove(new Position(2,3)));
-        }
+        Piece bRook1 = new Rook(Team.Black, new Position(0, 4), true);
+        Piece bRook2 = new Rook(Team.Black, new Position(6, 4), true);
+        Piece bRook3 = new Rook(Team.Black, new Position(4, 7), true);
+        Piece bRook4 = new Rook(Team.Black, new Position(5, 7), true);
+
+        Board board = new EmptyBoardFactory().getBoard();
+        board.addPiece(wRook1);
+        board.addPiece(wRook2);
+        board.addPiece(bRook1);
+        board.addPiece(bRook2);
+        board.addPiece(bRook3);
+        board.addPiece(bRook4);
+
+        assertTrue(wRook1.canMove(bRook1.getPosition(), board));
+        assertTrue(wRook1.canMove(bRook2.getPosition(), board));
+        assertTrue(wRook1.canMove(bRook3.getPosition(), board));
+        assertTrue(wRook1.canMove(new Position(3, 4), board));
+        assertTrue(wRook1.canMove(new Position(1, 4), board));
+        assertTrue(wRook1.canMove(new Position(5, 4), board));
+        assertTrue(wRook1.canMove(new Position(4, 6), board));
+
+        assertFalse(wRook1.canMove(wRook2.getPosition(), board));
+        assertTrue(wRook1.canMove(new Position(4, 2), board));
+        assertFalse(wRook1.canMove(bRook4.getPosition(), board));
+        assertFalse(wRook1.canMove(new Position(4, 0), board));
+        assertFalse(wRook1.canMove(new Position(7, 4), board));
+        assertFalse(wRook1.canMove(new Position(0, 0), board));
     }
 }

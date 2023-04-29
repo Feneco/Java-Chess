@@ -5,56 +5,62 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import xyz.feneco.backend.*;
 
-
 class PawnTest {
 
     @Test
-    void isMoveValid() {
-        Board board = new Board();
-        Piece wPawn1 = new Pawn(Team.White, new Position(0, 1), board);
-        Piece wPawn2 = new Pawn(Team.White, new Position(1, 1), board);
-        Piece bPawn1 = new Pawn(Team.Black, new Position(1, 2), board);
-        Piece bPawn2 = new Pawn(Team.Black, new Position(2, 6), board);
-        board.addPiece(wPawn1);
-        board.addPiece(wPawn2);
-        board.addPiece(bPawn1);
-        board.addPiece(bPawn2);
+    void canMove() {
+        {
+            Board b = new EmptyBoardFactory().getBoard();
+            Piece wPawn1 = new Pawn(Team.White, new Position(1, 1), true);
+            b.addPiece(wPawn1);
 
-        assertTrue(wPawn1.canMove(bPawn1.getPosition()));
-        assertFalse(wPawn2.canMove(wPawn2.getPosition().getAdd(0, 2)));
-        assertTrue(bPawn2.canMove(bPawn2.getPosition().getAdd(0, -2)));
-        assertTrue(bPawn1.canMove(wPawn1.getPosition()));
+            assertTrue(wPawn1.canMove(new Position(1, 3), b));
+            assertTrue(wPawn1.canMove(new Position(1, 2), b));
+            assertFalse(wPawn1.canMove(new Position(2, 2), b));
+            assertFalse(wPawn1.canMove(new Position(0, 2), b));
+
+            Piece wPawn2 = new Pawn(Team.White, new Position(0, 2), false);
+            b.addPiece(wPawn2);
+            Piece bPawn1 = new Pawn(Team.Black, new Position(2,2), false);
+            b.addPiece(bPawn1);
+            assertTrue(wPawn1.canMove(new Position(2, 2), b));
+            assertFalse(wPawn1.canMove(new Position(0, 2), b));
+        }
+        { // EnPassant test
+            Board b = new EmptyBoardFactory().getBoard();
+            Piece wPawn1 = new Pawn(Team.White, new Position(1, 4), false);
+            b.addPiece(wPawn1);
+            Piece bPawn1 = new Pawn(Team.Black, new Position(2, 6), true);
+            b.addPiece(bPawn1);
+
+            assertFalse(wPawn1.canMove(new Position(1, 6), b));
+            assertFalse(wPawn1.canMove(new Position(2, 5), b));
+            assertTrue(wPawn1.canMove(new Position(1, 5), b));
+            bPawn1.move(new Position(2, 4));
+            assertTrue(wPawn1.canMove(new Position(2, 5), b));
+
+            Piece wPawn2 = new Pawn(Team.White, new Position(3, 4), false);
+            b.addPiece(wPawn2);
+            Piece bPawn2 = new Pawn(Team.Black, new Position(4, 4), true);
+            b.addPiece(bPawn2);
+            assertFalse(wPawn1.canMove(new Position(4, 5), b));
+        }
     }
 
     @Test
-    void testForEnPassant() {
-        {
-            Board board = new Board();
-            Piece wPawn1 = new Pawn(Team.White, new Position(1, 4), board);
-            Piece bPawn1 = new Pawn(Team.Black, new Position(2, 6), board);
-            board.addPiece(wPawn1);
-            board.addPiece(bPawn1);
+    void move() {
+        Pawn wPawn1 = new Pawn(Team.White, new Position(1, 1), true);
 
-            board.changeTeam();
-            MovReport report = board.movePiece(new Position(2, 6), new Position(2, 4));
-            board.changeTeam();
-            assertTrue(wPawn1.canMove(new Position(2, 5)));
-            assertEquals(report, MovReport.Normal);
-            MovReport report2 = board.movePiece(new Position(1, 4), new Position(2, 5));
-            assertEquals(report2, MovReport.Normal);
-        }
-        {
-            Board board = new Board();
-            Piece wPawn1 = new Pawn(Team.White, new Position(0, 4), board);
-            Piece bPawn1 = new Pawn(Team.Black, new Position(1, 5), board);
-            board.addPiece(wPawn1);
-            board.addPiece(bPawn1);
+        assertFalse(wPawn1.getEnPassant());
+        wPawn1.move(new Position(1, 3));
+        assertTrue(wPawn1.getEnPassant());
+        wPawn1.move(new Position(1, 4));
+        assertFalse(wPawn1.getEnPassant());
 
-            board.changeTeam();
-            MovReport report = board.movePiece(new Position(1, 5), new Position(1, 4));
-            board.changeTeam();
-            assertFalse(wPawn1.canMove(new Position(1, 5)));
-            assertEquals(report, MovReport.Normal);
-        }
+        Pawn wPawn2 = new Pawn(Team.Black, new Position(2, 6), true);
+        wPawn2.move(new Position(2, 5));
+        assertFalse(wPawn1.getEnPassant());
+        wPawn2.move(new Position(2, 4));
+        assertFalse(wPawn1.getEnPassant());
     }
 }

@@ -3,39 +3,52 @@ package xyz.feneco.backend.pieces;
 import xyz.feneco.backend.*;
 
 public class King extends Piece  {
-    private final static Character kingSymbol = 'K';
-
-    public King(Team team, Position position, Board board) {
-        super(team, position, kingSymbol, board);
+    public King(Team team, Position position, boolean notMoved) {
+        super(team, position, 'K', notMoved);
     }
 
     @Override
-    protected Boolean isMoveValid(Position desiredPos) {
-        Position delta = desiredPos.getSub(position);
-        Boolean normalDelta = Math.abs(delta.getX()) == 1 || Math.abs(delta.getY()) == 1;
-        Boolean castling = ( delta.getY() == 0 ) && ( delta.getX() == -3 || delta.getX() == 2 );
-        if ( castling && getNotMoved() ) {
-            boolean kingside = delta.getX() > 0;
-            if (kingside) {
-                Piece p1 = board.getPieceAt(new Position(5, position.getY()));
-                Piece p2 = board.getPieceAt(new Position(6, position.getY()));
-                if (p1 != null || p2 != null) {
-                    return false;
-                }
+    public boolean canMove(Position desiredPosition, Board board) {
+        Position delta = desiredPosition.sub(position);
+        boolean move1Distance = Math.max( Math.abs(delta.x()), Math.abs(delta.y()) ) == 1;
+        boolean startPosition = (position.y() == 0 || position.y() == 7) && (position.x() == 4);
+        // Might be castling
+        // Check if it is in the starting chess position (as we might start the match halfway through)
+        if (!move1Distance && notMoved() && startPosition && desiredPosition.y() == position.y()) {
+            // kingSide will be 1 if it is kingSide, -1 if queenside, 0 if none.
+            int kingSide = desiredPosition.x() == 6 ? 1 : (desiredPosition.x() == 1 ? -1 : 0);
+            Position rookTestPosition;
+            if (kingSide == 1) {
+                rookTestPosition = new Position(7, position.y());
+            } else if (kingSide == -1) {
+                rookTestPosition = new Position(0, position.y());
             } else {
-                Piece p1 = board.getPieceAt(new Position(3, position.getY()));
-                Piece p2 = board.getPieceAt(new Position(2, position.getY()));
-                Piece p3 = board.getPieceAt(new Position(1, position.getY()));
-                if (p1 != null || p2 != null || p3 != null) {
-                    return false;
+                return false;
+            }
+            if (board.isPieceAt(rookTestPosition)) {
+                Piece mayBeRook = board.getPieceAt(rookTestPosition);
+                if (mayBeRook instanceof Rook rook) {
+                    if (rook.isEnemy(this)){
+                        return false;
+                    }
+                    if (kingSide == 1) {
+                        Position testPos1 = new Position(5, position.y());
+                        Position testPos2 = new Position(6, position.y());
+                        return !board.isPieceAt(testPos1) && !board.isPieceAt(testPos2) && rook.notMoved();
+                    } else if (kingSide == -1){
+                        Position testPos1 = new Position(1, position.y());
+                        Position testPos2 = new Position(2, position.y());
+                        Position testPos3 = new Position(3, position.y());
+                        return !board.isPieceAt(testPos1) && !board.isPieceAt(testPos2) && !board.isPieceAt(testPos3) && rook.notMoved();
+                    }
                 }
             }
-            Piece probableRook = board.getPieceAt(new Position(delta.getX() == -3 ? 0 : 7, position.getY()));
-            if (probableRook instanceof Rook rook) {
-                return rook.getNotMoved();
-            }
-            return false;
         }
-        return normalDelta;
+        if (board.isPieceAt(desiredPosition)) {
+            if (!board.getPieceAt(desiredPosition).isEnemy(this)){
+                return false;
+            }
+        }
+        return move1Distance;
     }
 }
